@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     uri->
                 Log.d("URL",uri.toString())
                 val rutaProcesada = uri.toString().removePrefix("file://")
-                val fecha = obtenerFechaHora("yyyy-MM-dd")
+                val fecha = obtenerFechaHora("ddMMyyyyHHmmss")
                 subirVideoAFirebaseStorage(
                     pathLocal = rutaProcesada,
                     nombreEnStorage = "video_qa_${fecha}.mp4",
