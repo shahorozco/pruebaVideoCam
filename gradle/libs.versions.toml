@@ -1,0 +1,26 @@
+[versions]
+agp = "8.10.1"
+kotlin = "2.0.21"
+appcompat = "1.7.0"
+material = "1.12.0"
+cameraX = "1.2.2"
+versionAbed = "1.2.3"
+firebaseBom = "33.14.0"
+[bundles]
+ui = ["androidx-camera-core","androidx-camera-camera2","androidx-camera-lifecycle","androidx-camera-view","androidx-camera-video","abedElazizShe","firebase-storage"]
+[libraries]
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraX"}
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "cameraX"}
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraX"}
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraX"}
+androidx-camera-video = { group = "androidx.camera", name = "camera-video", version.ref = "cameraX"}
+abedElazizShe = { group = "com.github.AbedElazizShe", name = "LightCompressor", version.ref = "versionAbed"}
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom"}
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage"}
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+

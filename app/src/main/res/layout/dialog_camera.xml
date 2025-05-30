@@ -1,0 +1,189 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:padding="8dp">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <VideoView
+        android:id="@+id/videoPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="5dp"
+        android:text="00:00"/>
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="start"
+        android:layout_margin="26dp"
+        android:visibility="gone"
+        android:background="@drawable/bg_button_camera_en"
+        android:contentDescription="Cerrar"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:tint="@color/foregroundColor" />
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="26dp"
+        android:paddingStart="8dp"
+        android:background="@drawable/bg_button_camera_en"
+        android:contentDescription="Cerrar"
+        android:visibility="gone"
+        android:src="@drawable/ic_play_arrow"
+        app:tint="@color/foregroundColor" />
+
+    <ImageButton
+        android:id="@+id/btnPause"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="26dp"
+        android:background="@drawable/bg_button_camera_en"
+        android:contentDescription="Cerrar"
+        android:visibility="gone"
+        android:src="@drawable/ic_pause_btn"
+        app:tint="@color/foregroundColor" />
+
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="26dp"
+        android:background="@drawable/bg_button_camera_en"
+        android:contentDescription="Cerrar"
+        android:src="@drawable/ic_delete_evidence"
+        app:tint="@color/foregroundColor" />
+
+    <ImageView
+        android:id="@+id/btnCapture"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_btn_double_circle"
+        android:clickable="true"
+        android:contentDescription="Tomar foto"
+        android:focusable="true"
+        android:scaleType="centerInside"
+        app:tint="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/btnStop"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_btn_double_square"
+        android:clickable="true"
+        android:visibility="gone"
+        android:contentDescription="Tomar foto"
+        android:focusable="true"
+        android:scaleType="centerInside"
+        app:tint="@color/colorWhite" />
+
+    <LinearLayout
+        android:id="@+id/actionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnClose2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|start"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_button_camera_en"
+                android:contentDescription="Cerrar"
+                android:src="@drawable/ic_delete_evidence"
+                app:tint="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnAccept"
+                android:layout_width="100dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/corner_radius_btn_en"
+                android:contentDescription="Aceptar"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_baseline_check_24"
+                app:tint="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnRetake"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_button_camera_en"
+                android:contentDescription="Cerrar"
+                android:src="@drawable/ic_trash_evidence"
+                app:tint="@color/colorPrimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

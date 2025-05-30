@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#086BB5</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="transparent">#00000000</color>
+    <color name="defaultButton">#dbdbdb</color>
+    <color name="textPrimary">#DD000000</color>
+    <color name="textSecondary">#89000000</color>
+    <color name="textSecondary2">#de000000</color>
+    <color name="textTerciary">#20000000</color>
+    <color name="textTerciary2">#4D000000</color>
+    <color name="colorGrayLight">#F0F0F0</color>
+    <color name="color_red">#DD0000</color>
+
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorWhite80">#CCFFFFFF</color>
+    <color name="colorBackgroundOverlay">#B8FAFAFA</color>
+    <color name="colorBackgroundOverlay2">#3DFAFAFA</color>
+    <color name="colorBackgroundOverlayDark">#3D000000</color>
+    <color name="colorBackgroundGray5">#0D000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorOffl">#fca791</color>
+    <color name="colorGrayText">#89000000</color>
+    <color name="colorGray">#D6D6D6</color>
+    <color name="blueButtonColor">#5799e8</color>
+
+
+    <color name="rippleColorNoOpacityWhite">#ebebeb</color>
+    <color name="rippleColor">#42ffffff</color>
+    <color name="foregroundColor">#ff086bb5</color>
+    <color name="foregroundColorLight">#5799e8</color>
+
+
+</resources>
