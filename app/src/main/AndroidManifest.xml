@@ -16,6 +16,7 @@
         android:maxSdkVersion="32" />
 
     <application
+        android:name=".application.dagger.PruebasCamApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,15 +27,15 @@
         android:theme="@style/Theme.PruebaVideoCam"
         tools:targetApi="31">
         <activity
-            android:name=".Page3"
+            android:name=".ui.Page3"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Page2"
+            android:name=".ui.Page2"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

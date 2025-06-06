@@ -1,4 +1,4 @@
-package com.coordinadora.pruebavideocam
+package com.coordinadora.pruebavideocam.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,18 +7,38 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.coordinadora.pruebavideocam.utils.CustomCameraDialogVideoFragment
+import com.coordinadora.pruebavideocam.R
+import com.coordinadora.pruebavideocam.application.dagger.PruebasCamApplication
+import com.coordinadora.pruebavideocam.database.AppDatabase
+import com.coordinadora.pruebavideocam.database.entity.Globals
+import com.coordinadora.pruebavideocam.utils.Connectivity
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.FirebaseApp
 import com.google.firebase.Timestamp
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var dbLocal: AppDatabase
+    @Inject
+    lateinit var connectivity: Connectivity
+    @Inject
+    lateinit var pruebasCamApplication: PruebasCamApplication
     private val permissions = mutableListOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -31,27 +51,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        (applicationContext as PruebasCamApplication).getPruebasCamComponent().inject(this)
         requestPermissions()
         FirebaseApp.initializeApp(this)
+
         val btnCaptureVideo = findViewById<MaterialButton>(R.id.btnCaptureVideo)
         val btnNav = findViewById<MaterialButton>(R.id.btnNav)
+        val btnSync = findViewById<MaterialButton>(R.id.btnSync)
         btnCaptureVideo.setOnClickListener {
             CustomCameraDialogVideoFragment {
                     uri->
                 Log.d("URL",uri.toString())
-                val rutaProcesada = uri.toString().removePrefix("file://")
-                val fecha = obtenerFechaHora("ddMMyyyyHHmmss")
-                subirVideoAFirebaseStorage(
-                    pathLocal = rutaProcesada,
-                    nombreEnStorage = "video_qa_${fecha}.mp4",
-                    onSuccess = {
-                        Log.d("Firebase", "Video subido exitosamente")
-                        clearCacheFiles(uri.toString())
-                    },
-                    onFailure = { e ->
-                        Log.e("Firebase", "Error al subir video: ${e.message}")
-                    }
-                )
+                if(connectivity.checkForInternetData(pruebasCamApplication.applicationContext)){
+                    guardarFirebase(uri.toString())
+                }else{
+                    dbLocal.globalDao()!!.insertAll(Globals("video",uri.toString()))
+                }
             }.show(supportFragmentManager,"video")
         }
         btnNav.setOnClickListener {
@@ -60,6 +75,47 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        btnSync.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val video = dbLocal.globalDao()!!.getValue("video")
+                if (video != "") {
+                    guardarFirebase(video)
+                } else {
+                    launch(Dispatchers.Main) {
+                        toastPersonalizado("No hay video disponible para sincronizar")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun toastPersonalizado(mensaje: String){
+        val toast = Toast(pruebasCamApplication.applicationContext)
+        val layout = LayoutInflater.from( pruebasCamApplication.applicationContext).inflate(R.layout.custom_toast, null)
+
+        layout.findViewById<TextView>(R.id.toast_text).text = mensaje
+
+        toast.view = layout
+        toast.duration = Toast.LENGTH_SHORT
+        toast.show()
+    }
+
+    fun guardarFirebase(ruta: String){
+        val rutaProcesada = ruta.removePrefix("file://")
+        val fecha = obtenerFechaHora("ddMMyyyyHHmmss")
+        subirVideoAFirebaseStorage(
+            pathLocal = rutaProcesada,
+            nombreEnStorage = "video_qa_${fecha}.mp4",
+            onSuccess = {
+                Log.d("Firebase", "Video subido exitosamente")
+                clearCacheFiles(ruta)
+                Toast.makeText(pruebasCamApplication.applicationContext,"Video sincronizado en Storage",Toast.LENGTH_SHORT).show()
+            },
+            onFailure = { e ->
+                Toast.makeText(pruebasCamApplication.applicationContext,"Error al subir el video",Toast.LENGTH_SHORT).show()
+                Log.e("Firebase", "Error al subir video: ${e.message}")
+            }
+        )
     }
 
     fun clearCacheFiles(uri: String) {

@@ -1,4 +1,4 @@
-package com.coordinadora.pruebavideocam
+package com.coordinadora.pruebavideocam.utils
 
 import android.content.Context
 import android.net.Uri
@@ -38,13 +38,13 @@ class VideoCompressorManager(private val context: Context) {
                 sharedStorageConfiguration = null,
                 appSpecificStorageConfiguration = appSpecificStorageConfig,
                 configureWith = Configuration(
-                    quality = VideoQuality.LOW,
+                    quality = VideoQuality.MEDIUM,
                     isMinBitrateCheckEnabled = false,
                     videoBitrateInMbps = 1,
                     disableAudio = false,
                     keepOriginalResolution = false,
-                    videoWidth = 320.0,
-                    videoHeight = 480.0
+                    videoWidth = 240.0,
+                    videoHeight = 240.0
                 ),
                 listener = object : CompressionListener {
                     override fun onCancelled(index: Int) {
@@ -102,7 +102,6 @@ class VideoCompressorManager(private val context: Context) {
             0L
         }
     }
-
 
     fun formatFileSize(bytes: Long): String {
         return when {

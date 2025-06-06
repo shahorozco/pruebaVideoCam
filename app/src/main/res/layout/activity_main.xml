@@ -5,27 +5,38 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCaptureVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Capturar Video"
-        android:backgroundTint="@color/foregroundColor"
-        android:textColor="@color/colorWhite"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/foregroundColor"
+        android:text="Capturar Video"
+        android:textColor="@color/colorWhite" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Navegar"
-        android:backgroundTint="@color/foregroundColor"
-        android:textColor="@color/colorWhite"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/foregroundColor"
+        android:text="Navegar"
+        android:textColor="@color/colorWhite" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/foregroundColor"
+        android:text="Sincronizar"
+        android:textColor="@color/colorWhite" />
 
 </LinearLayout>

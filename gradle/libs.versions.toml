@@ -1,13 +1,20 @@
 [versions]
 agp = "8.10.1"
-kotlin = "2.0.21"
+kotlin = "1.9.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 cameraX = "1.2.2"
 versionAbed = "1.2.3"
 firebaseBom = "33.14.0"
+googleServices = "4.4.2"
+roomVersion = "2.6.1"
+daggerVersion = "2.48.1"
+kspVersion = "1.9.20-RC2-1.0.13"
+multidexVersion = "2.0.1"
+
 [bundles]
-ui = ["androidx-camera-core","androidx-camera-camera2","androidx-camera-lifecycle","androidx-camera-view","androidx-camera-video","abedElazizShe","firebase-storage"]
+ui = ["androidx-camera-core","androidx-camera-camera2","androidx-camera-lifecycle","androidx-camera-view","androidx-camera-video","abedElazizShe","room-runtime","dagger","firebase-storage","multidex"]
+ksp = ["room-compiler","dagger-compiler"]
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -19,8 +26,14 @@ androidx-camera-video = { group = "androidx.camera", name = "camera-video", vers
 abedElazizShe = { group = "com.github.AbedElazizShe", name = "LightCompressor", version.ref = "versionAbed"}
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom"}
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage"}
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion"}
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion"}
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "daggerVersion"}
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "daggerVersion"}
+multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidexVersion"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+ksp-google = { id = "com.google.devtools.ksp", version.ref = "kspVersion"}
 

@@ -1,4 +1,4 @@
-package com.coordinadora.pruebavideocam
+package com.coordinadora.pruebavideocam.utils
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -21,6 +21,7 @@ import android.widget.VideoView
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.coordinadora.pruebavideocam.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -108,8 +109,7 @@ class CustomCameraDialogVideoFragment(private val onVideoCaptured: (Uri) -> Unit
             btnCapture.visibility = View.GONE
             btnBack.visibility = View.GONE
             btnStop.visibility = View.VISIBLE
-            recordingStartTime = System.currentTimeMillis()
-            startTimer()
+
             customCameraManager.startRecording { uri ->
                 capturedVideoUri = uri
                 actionButtons.visibility = View.VISIBLE
@@ -118,21 +118,28 @@ class CustomCameraDialogVideoFragment(private val onVideoCaptured: (Uri) -> Unit
                 videoView.seekTo(1000)
                 videoView.visibility = View.VISIBLE
             }
-            val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({
-                previewView.visibility = View.GONE
-                imagePreview.visibility = View.GONE
-                actionButtons.visibility = View.VISIBLE
-                btnStop.visibility = View.GONE
-                btnBack.visibility = View.GONE
-                btnPlay.visibility = View.VISIBLE
-                customCameraManager.stopRecording()
-                customCameraManager.autoStopRunnable?.let {
-                    customCameraManager.handler!!.removeCallbacks(it)
-                }
-                stopTimer()
-            }, 20_000)
+
+            customCameraManager.onRecordingStarted = {
+                recordingStartTime = System.currentTimeMillis()
+                startTimer()
+
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    customCameraManager.stopRecording()
+                    customCameraManager.autoStopRunnable?.let {
+                        customCameraManager.handler?.removeCallbacks(it)
+                    }
+                    stopTimer()
+                    previewView.visibility = View.GONE
+                    imagePreview.visibility = View.GONE
+                    actionButtons.visibility = View.VISIBLE
+                    btnStop.visibility = View.GONE
+                    btnBack.visibility = View.GONE
+                    btnPlay.visibility = View.VISIBLE
+                }, 20_500)
+            }
         }
+
 
         btnStop.setOnClickListener {
             previewView.visibility = View.GONE

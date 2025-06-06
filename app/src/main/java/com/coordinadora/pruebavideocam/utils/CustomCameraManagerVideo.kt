@@ -1,4 +1,4 @@
-package com.coordinadora.pruebavideocam
+package com.coordinadora.pruebavideocam.utils
 
 import android.Manifest
 import android.content.Context
@@ -31,6 +31,7 @@ class CustomCameraManagerVideo(
     private lateinit var outputFile: File
     private val executor: Executor = ContextCompat.getMainExecutor(context)
     private var currentRecording: Recording? = null
+    var onRecordingStarted: (() -> Unit)? = null
     fun startCamera(lifecycleOwner: LifecycleOwner) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener({
@@ -73,17 +74,22 @@ class CustomCameraManagerVideo(
             ?.withAudioEnabled()
             ?.start(executor) { recordEvent ->
                 when (recordEvent) {
+                    is VideoRecordEvent.Start -> {
+                        Handler(Looper.getMainLooper()).post {
+                            onRecordingStarted?.invoke()
+                        }
+                    }
                     is VideoRecordEvent.Finalize -> {
                         Handler(Looper.getMainLooper()).post {
                             onVideoSaved(Uri.fromFile(outputFile))
                         }
                         currentRecording = null
                     }
-
                     else -> {}
                 }
             }
     }
+
 
 
     fun stopRecording() {
